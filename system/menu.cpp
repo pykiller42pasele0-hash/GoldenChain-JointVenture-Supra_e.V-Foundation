@@ -1,3 +1,5 @@
 #include <iostream>
-void startLaunch() { std::cout << "C++-Launch gestartet." << std::endl; }
-int main() { startLaunch(); return 0; }
+int main() {
+    std::cout << "C++-Performance-Modul aktiv." << std::endl;
+    return 0;
+}

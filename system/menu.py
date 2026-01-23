@@ -1,4 +1,6 @@
 def launch():
-    print("Python-Launch gestartet.")
+    print("Python-Systemrahmen gestartet.")
+    print("Status: Quadruplicare-Logik aktiv.")
+
 if __name__ == "__main__":
     launch()
