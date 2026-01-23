@@ -35,7 +35,6 @@ async function loadPage(page, specificFile = null) {
   const dropdown = document.getElementById('dynamic-dropdown');
   const targetPath = specificFile || routes[page].path;
 
-  // Dropdown aktualisieren
   dropdown.innerHTML = '';
   routes[page].dropdown.forEach(item => {
     let a = document.createElement('a');
@@ -60,4 +59,11 @@ async function loadPage(page, specificFile = null) {
     content.innerHTML = '<div class="markdown-body"><h1>Inhalt folgt</h1><p>Dieses Modul wird derzeit notarisiert oder ist privat.</p></div>';
   }
 }
-window.addEventListener('load', () => loadPage('home'));
+
+// NEU: Diese Logik prüft beim Start, ob ein spezieller Link (wie die Lizenz) aufgerufen wurde
+window.addEventListener('load', () => {
+  const params = new URLSearchParams(window.location.search);
+  const p = params.get('page') || 'home';
+  const f = params.get('file');
+  loadPage(p, f);
+});

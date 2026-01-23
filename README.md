@@ -1,8 +1,8 @@
 # GoldenChain Joint Venture Supra e.V. Foundation
 
-**LICENSE.rfof**
+**@RFOF-NETWORK licensed under the PZqQET.license LICENSE.rfof**
 
-## WHITEPAPER
+## LICENSE.pzqqet -> GJVS e.V -/ Foundation
 
 **Golden Joint Ventures Supra e.V.** *The digital supranational association for joint venture architecture, private blockchain infrastructure, and global site development.*
 
