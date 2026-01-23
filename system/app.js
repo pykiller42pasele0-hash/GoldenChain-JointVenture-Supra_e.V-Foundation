@@ -1,24 +1,31 @@
 ﻿const routes = {
   home: { 
-    path: 'README.md', 
+    path: '../README.md', 
     dropdown: [
-      { name: 'HOME ROOT', file: 'README.md' },
-      { name: 'LICENSE (RFOF)', file: 'LICENSE.rfof' }
+      { name: 'HOME ROOT', file: '../README.md' },
+      { name: 'LICENSE (RFOF)', file: '../LICENSE.rfof' }
     ]
   },
   doku: { 
-    path: 'content/whitepaper.md', 
+    path: '../content/whitepaper.md', 
     dropdown: [
-      { name: 'WHITEPAPER', file: 'content/whitepaper.md' },
-      { name: 'EBENE 1', file: 'content/ebene1.md' },
-      { name: 'EBENE 2', file: 'content/ebene2.md' },
-      { name: 'EBENE 3', file: 'content/ebene3.md' },
-      { name: 'EBENE 4', file: 'content/ebene4.md' },
-      { name: 'EBENE 5', file: 'content/ebene5.md' },
-      { name: 'EBENE 6', file: 'content/ebene6.md' },
-      { name: 'EBENE 7', file: 'content/ebene7.md' },
-      { name: 'EBENE 8', file: 'content/ebene8.md' },
-      { name: 'EBENE 9', file: 'content/ebene9.md' }
+      { name: 'WHITEPAPER', file: '../content/whitepaper.md' },
+      { name: 'EBENE 1', file: '../content/ebene1.md' },
+      { name: 'EBENE 2', file: '../content/ebene2.md' },
+      { name: 'EBENE 3', file: '../content/ebene3.md' },
+      { name: 'EBENE 4', file: '../content/ebene4.md' },
+      { name: 'EBENE 5', file: '../content/ebene5.md' },
+      { name: 'EBENE 6', file: '../content/ebene6.md' },
+      { name: 'EBENE 7', file: '../content/ebene7.md' },
+      { name: 'EBENE 8', file: '../content/ebene8.md' },
+      { name: 'EBENE 9', file: '../content/ebene9.md' }
+    ]
+  },
+  launch: { 
+    path: null, 
+    dropdown: [
+      { name: 'SYSTEM STATUS', file: null },
+      { name: 'BLOCKCHAIN NODE', file: null }
     ]
   }
 };
@@ -46,39 +53,51 @@ async function loadPage(page, specificFile = null) {
   const content = document.getElementById('content');
   const dropdown = document.getElementById('dynamic-dropdown');
   
-  // Pfad-Logik: Wir gehen immer vom Hauptverzeichnis (Root) aus
-  let targetFile = specificFile || (routes[page] ? routes[page].path : null);
-  let fetchPath = targetFile ? window.location.origin + window.location.pathname.replace('launch/index.html', '') + targetFile : null;
+  // Wenn kein spezifisches File angegeben, nimm den Standardpfad der Route
+  let targetPath = specificFile || (routes[page] ? routes[page].path : null);
 
-  // Dropdown Menü bauen
+  // Dropdown-Inhalt generieren
   dropdown.innerHTML = '';
-  if (routes[page]) {
+  if (routes[page] && routes[page].dropdown) {
     routes[page].dropdown.forEach(item => {
       let a = document.createElement('a');
       a.textContent = item.name;
       a.href = '#';
-      a.onclick = (e) => { e.preventDefault(); loadPage(page, item.file); };
+      a.onclick = (e) => { 
+        e.preventDefault(); 
+        loadPage(page, item.file); 
+      };
       dropdown.appendChild(a);
     });
   }
 
-  if (page === 'notariat' || !fetchPath) {
-    showNotariat(targetFile || 'Launch_System');
+  // Sonderfall Launch Pad ohne File
+  if (page === 'launch' && !specificFile) {
+    content.innerHTML = '<div class="markdown-body"><h1>GoldenChain Launch Pad</h1><p>System bereit zur Skalierung.</p></div>';
+    return;
+  }
+
+  // Notariat anzeigen, wenn kein Pfad existiert oder explizit aufgerufen wurde
+  if (page === 'notariat' || !targetPath) {
+    showNotariat(specificFile || 'System_Core');
     return;
   }
 
   try {
-    const response = await fetch(fetchPath);
+    const response = await fetch(targetPath);
     if (!response.ok) throw new Error();
     const markdown = await response.text();
     content.innerHTML = '<div class="markdown-body">' + marked.parse(markdown) + '</div>';
     window.scrollTo(0,0);
   } catch (e) {
-    showNotariat(targetFile);
+    showNotariat(targetPath);
   }
 }
 
+// System-Initialisierung
 window.addEventListener('load', () => {
   const params = new URLSearchParams(window.location.search);
-  loadPage(params.get('page') || 'home', params.get('file'));
+  const pageParam = params.get('page') || 'home';
+  const fileParam = params.get('file');
+  loadPage(pageParam, fileParam);
 });
