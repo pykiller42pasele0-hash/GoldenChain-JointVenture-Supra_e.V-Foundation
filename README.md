@@ -1,5 +1,3 @@
-# GoldenChain Joint Venture Supra e.V. Foundation
-
 **LICENSE.rfof**
 
 ## WHITEPAPER
