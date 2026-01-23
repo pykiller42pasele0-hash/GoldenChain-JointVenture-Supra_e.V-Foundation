@@ -33,44 +33,50 @@
 function showNotariat(targetFile) {
     const content = document.getElementById('content');
     const timestamp = new Date().toISOString().replace('T', ' ').substring(0, 19);
-    const hash = btoa(targetFile + timestamp).substring(0, 32);
+    // Erzeugt einen pseudo-mathematischen Hash für die Notarisierung
+    const hash = btoa(targetFile + timestamp).substring(0, 32).toUpperCase();
     
-    content.innerHTML = 
-        <div class="notariat-explorer">
-            <h2 style="color:#ffd700;">NOTARIAT EXPLORER</h2>
-            <div style="background:#222; padding:20px; border-radius:5px; border-left: 5px solid #ffd700; text-align:left; font-family:monospace;">
-                <p>> STATUS: PENDING / NOTARIZED</p>
-                <p>> OBJECT: \</p>
-                <p>> HASH: \</p>
-                <p>> TIMESTAMP: \</p>
-                <p>> AUTHORITY: Founder Justin Koch</p>
-                <hr style="border:0; border-top:1px solid #444;">
-                <p style="color:#aaa;">Dieses Modul ist privat oder befindet sich im Notarisierungsprozess. 
-                Die Verifizierung erfolgt über die Blockchain-Infrastruktur der GoldenChain Foundation.</p>
-                <p>Anfragen: <a href="mailto:info@rfof-bitcoin.org" style="color:#ffd700;">info@rfof-bitcoin.org</a></p>
+    content.innerHTML = \
+        <div class="notariat-explorer" style="text-align:center; margin-top:50px;">
+            <h2 style="color:#ffd700; font-family:monospace;">[!] NOTARIAT EXPLORER ACTIVE</h2>
+            <div style="background:#111; color:#0f0; padding:30px; border-radius:10px; border: 1px solid #ffd700; text-align:left; font-family:monospace; display:inline-block; min-width:80%; box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);">
+                <p style="color:#ffd700;">> ACCESS PROTOCOL: SECURE_RFOF_V1</p>
+                <p>> OBJECT_ID: \</p>
+                <p>> VALIDATION_HASH: \</p>
+                <p>> TIMESTAMP: \ GMT</p>
+                <p>> AUTHORITY: FOUNDER JUSTIN KOCH</p>
+                <p>> STATUS: <span style="color:#fff; background:red; padding:2: 5px;">NOTARIZATION PENDING</span></p>
+                <hr style="border:0; border-top:1px solid #333; margin:20px 0;">
+                <p style="color:#888;">Dieses Modul ist urheberrechtlich geschützt und wird derzeit im Blockchain-Notariat der Foundation verarbeitet. Ein direkter Zugriff ohne Lizenzschlüssel ist nicht möglich.</p>
+                <p style="margin-top:20px;">SYSTEM_CONTACT: <a href="mailto:info@rfof-bitcoin.org" style="color:#ffd700; text-decoration:none;">info@rfof-bitcoin.org</a></p>
             </div>
         </div>
-    ;
+    \;
 }
 
 async function loadPage(page, specificFile = null) {
   const content = document.getElementById('content');
   const dropdown = document.getElementById('dynamic-dropdown');
-  
-  // Pfad-Korrektur für den Direkt-Link (falls file=../LICENSE.rfof übergeben wird)
   let targetPath = specificFile || routes[page].path;
 
   dropdown.innerHTML = '';
-  routes[page].dropdown.forEach(item => {
-    let a = document.createElement('a');
-    a.textContent = item.name;
-    a.href = '#';
-    a.onclick = (e) => { e.preventDefault(); loadPage(page, item.file); };
-    dropdown.appendChild(a);
-  });
+  if(routes[page]) {
+      routes[page].dropdown.forEach(item => {
+        let a = document.createElement('a');
+        a.textContent = item.name;
+        a.href = '#';
+        a.onclick = (e) => { e.preventDefault(); loadPage(page, item.file); };
+        dropdown.appendChild(a);
+      });
+  }
 
   if (page === 'notariat') {
-      showNotariat('Global System Audit');
+      showNotariat('Global_System_Audit_Log');
+      return;
+  }
+
+  if (!targetPath || page === 'launch' && !specificFile) {
+      showNotariat('Launch_System_Core');
       return;
   }
 
@@ -81,7 +87,7 @@ async function loadPage(page, specificFile = null) {
     content.innerHTML = '<div class="markdown-body">' + marked.parse(markdown) + '</div>';
     window.scrollTo(0,0);
   } catch (e) {
-    showNotariat(targetPath || 'Unknown Module');
+    showNotariat(targetPath);
   }
 }
 
