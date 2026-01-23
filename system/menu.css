@@ -9,3 +9,17 @@
 .dropdown-container:hover .dropdown-content { display: block; }
 #content { margin: 100px auto 50px auto; max-width: 900px; background: white; padding: 40px; box-shadow: 0 0 10px rgba(0,0,0,0.1); border-radius: 8px; }
 .markdown-body { text-align: center; line-height: 1.6; }
+
+/* Tabellen-Zentrierung für README und alle Ebenen */
+.markdown-body table {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.markdown-body table th, .markdown-body table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
