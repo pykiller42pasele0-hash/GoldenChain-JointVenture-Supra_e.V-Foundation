@@ -34,7 +34,6 @@ function showNotariat(targetFile) {
     const content = document.getElementById('content');
     const timestamp = new Date().toISOString().replace('T', ' ').substring(0, 19);
     const hash = btoa(targetFile + timestamp).substring(0, 32).toUpperCase();
-    
     content.innerHTML = \
         <div class="notariat-explorer" style="text-align:center; margin-top:50px;">
             <h2 style="color:#ffd700; font-family:monospace;">[!] NOTARIAT EXPLORER ACTIVE</h2>
@@ -43,8 +42,8 @@ function showNotariat(targetFile) {
                 <p>> VALIDATION_HASH: \</p>
                 <p>> STATUS: <span style="color:#fff; background:red; padding:2px 5px;">NOTARIZATION PENDING</span></p>
                 <hr style="border:0; border-top:1px solid #333; margin:20px 0;">
-                <p style="color:#888;">Dieses Modul ist privat oder wird gerade notarisiert.</p>
-                <p>Kontakt: <a href="mailto:info@rfof-bitcoin.org" style="color:#ffd700; text-decoration:none;">info@rfof-bitcoin.org</a></p>
+                <p style="color:#888;">Inhalt wird verifiziert oder ist privat geschützt.</p>
+                <p>Anfrage: <a href="mailto:info@rfof-bitcoin.org" style="color:#ffd700; text-decoration:none;">info@rfof-bitcoin.org</a></p>
             </div>
         </div>\;
 }
@@ -52,36 +51,25 @@ function showNotariat(targetFile) {
 async function loadPage(page, specificFile = null) {
   const content = document.getElementById('content');
   const dropdown = document.getElementById('dynamic-dropdown');
-  
-  // Wenn kein spezifisches File angegeben, nimm den Standardpfad der Route
-  let targetPath = specificFile || (routes[page] ? routes[page].path : null);
+  const route = routes[page] || routes['home'];
+  const targetPath = specificFile || route.path;
 
-  // Dropdown-Inhalt generieren
+  // Dropdown aktualisieren
   dropdown.innerHTML = '';
-  if (routes[page] && routes[page].dropdown) {
-    routes[page].dropdown.forEach(item => {
-      let a = document.createElement('a');
-      a.textContent = item.name;
-      a.href = '#';
-      a.onclick = (e) => { 
-        e.preventDefault(); 
-        loadPage(page, item.file); 
-      };
-      dropdown.appendChild(a);
-    });
-  }
+  route.dropdown.forEach(item => {
+    let a = document.createElement('a');
+    a.textContent = item.name;
+    a.href = '#';
+    a.onclick = (e) => { e.preventDefault(); loadPage(page, item.file); };
+    dropdown.appendChild(a);
+  });
 
-  // Sonderfall Launch Pad ohne File
   if (page === 'launch' && !specificFile) {
-    content.innerHTML = '<div class="markdown-body"><h1>GoldenChain Launch Pad</h1><p>System bereit zur Skalierung.</p></div>';
+    content.innerHTML = '<div class="markdown-body"><h1>GoldenChain Launch Pad</h1><p>System bereit.</p></div>';
     return;
   }
 
-  // Notariat anzeigen, wenn kein Pfad existiert oder explizit aufgerufen wurde
-  if (page === 'notariat' || !targetPath) {
-    showNotariat(specificFile || 'System_Core');
-    return;
-  }
+  if (page === 'notariat') { showNotariat('Global_System_Audit'); return; }
 
   try {
     const response = await fetch(targetPath);
@@ -90,14 +78,14 @@ async function loadPage(page, specificFile = null) {
     content.innerHTML = '<div class="markdown-body">' + marked.parse(markdown) + '</div>';
     window.scrollTo(0,0);
   } catch (e) {
-    showNotariat(targetPath);
+    showNotariat(targetPath || 'Unknown_Module');
   }
 }
 
-// System-Initialisierung
-window.addEventListener('load', () => {
+// Initialer Load
+window.addEventListener('DOMContentLoaded', () => {
   const params = new URLSearchParams(window.location.search);
-  const pageParam = params.get('page') || 'home';
-  const fileParam = params.get('file');
-  loadPage(pageParam, fileParam);
+  const p = params.get('page') || 'home';
+  const f = params.get('file');
+  loadPage(p, f);
 });
