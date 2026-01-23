@@ -20,22 +20,31 @@
       { name: 'EBENE 8', file: '../content/ebene8.md' },
       { name: 'EBENE 9', file: '../content/ebene9.md' }
     ]
-  },
-  launch: { 
-    path: null, 
-    dropdown: [
-      { name: 'SYSTEM STATUS', file: null },
-      { name: 'BLOCKCHAIN NODE', file: null }
-    ]
   }
 };
 
-// MATHEMATISCHE NOTARIAT-FUNKTION (Erzeugt den Schutz-Inhalt)
 function showNotariat(targetFile) {
     const content = document.getElementById('content');
     const timestamp = new Date().toISOString().replace('T', ' ').substring(0, 19);
     const hash = btoa(targetFile + timestamp).substring(0, 24).toUpperCase();
-    content.innerHTML = '<div class="markdown-body"><h1>[!] NOTARIAT EXPLORER</h1><p>Status: <b>PENDING / PRIVATE</b></p><p>ID: '+targetFile+'</p><p>Hash: '+hash+'</p><hr><p>Dieses Modul wird derzeit notarisiert oder ist privat.</p></div>';
+    
+    content.innerHTML = \
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; font-family: 'Courier New', monospace;">
+            <div style="border: 2px solid #ffd700; background: rgba(0,0,0,0.9); padding: 40px; border-radius: 5px; box-shadow: 0 0 30px rgba(255, 215, 0, 0.3); max-width: 800px; width: 90%;">
+                <h1 style="color: #ffd700; margin-top: 0; letter-spacing: 5px; border-bottom: 1px solid #333; padding-bottom: 10px;">[!] NOTARIAT EXPLORER</h1>
+                <div style="text-align: left; line-height: 1.6; color: #0f0;">
+                    <p style="margin: 5px 0;"><span style="color: #888;">STATUS:</span> <span style="color: #fff; background: #c00; padding: 0 5px;">PENDING / PRIVATE</span></p>
+                    <p style="margin: 5px 0;"><span style="color: #888;">ID:</span> \</p>
+                    <p style="margin: 5px 0;"><span style="color: #888;">HASH:</span> \</p>
+                    <p style="margin: 5px 0;"><span style="color: #888;">TIME:</span> \ GMT</p>
+                    <hr style="border: 0; border-top: 1px solid #333; margin: 20px 0;">
+                    <p style="color: #aaa; font-style: italic;">Dieses Modul ist urheberrechtlich geschützt oder befindet sich im Notarisierungsprozess der GoldenChain Foundation. Zugriff verweigert.</p>
+                </div>
+                <div style="margin-top: 30px;">
+                    <a href="mailto:info@rfof-bitcoin.org" style="color: #000; background: #ffd700; padding: 10px 20px; text-decoration: none; font-weight: bold; border-radius: 3px;">ANTRAG STELLEN</a>
+                </div>
+            </div>
+        </div>\;
 }
 
 async function loadPage(page, specificFile = null) {
@@ -45,22 +54,23 @@ async function loadPage(page, specificFile = null) {
   if (!routes[page]) page = 'home';
   const targetPath = specificFile || routes[page].path;
 
+  // Dropdown füllen
   dropdown.innerHTML = '';
   routes[page].dropdown.forEach(item => {
     let a = document.createElement('a');
-    a.textContent = item.name;
-    a.href = '#';
+    a.textContent = item.name; a.href = '#';
     a.onclick = (e) => { e.preventDefault(); loadPage(page, item.file); };
     dropdown.appendChild(a);
   });
 
-  if (page === 'notariat' || (page === 'launch' && !specificFile)) {
-    showNotariat(specificFile || 'Launch_Pad_Core');
+  if (!targetPath) {
+    showNotariat('ROOT_SYSTEM_ACCESS');
     return;
   }
 
   try {
-    const response = await fetch(targetPath);
+    // Erzwinge Cache-Refresh bei Fetch
+    const response = await fetch(targetPath, { cache: "no-cache" });
     if (!response.ok) throw new Error();
     const markdown = await response.text();
     content.innerHTML = '<div class="markdown-body">' + marked.parse(markdown) + '</div>';
