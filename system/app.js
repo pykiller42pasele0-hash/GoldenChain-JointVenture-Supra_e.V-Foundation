@@ -1,13 +1,12 @@
-const routes = {
-  home: { path: '../README.md', subs: ['Vision', 'Mission', 'Team'] },
-  doku: { path: '../content/whitepaper.md', subs: ['Ebene 1', 'Ebene 2', 'Ebene 3'] },
-  launch: { path: null, subs: ['Blockchain', 'Nodes', 'Status'] }
+﻿const routes = {
+  home: { path: '../README.md', subs: ['Vision', 'Mission'] },
+  doku: { path: '../content/whitepaper.md', subs: ['Ebene 1', 'Matrix'] },
+  launch: { path: null, subs: ['Blockchain', 'Status'] }
 };
 
 async function loadPage(page) {
   const content = document.getElementById('content');
   const dropdown = document.getElementById('dynamic-dropdown');
-  
   dropdown.innerHTML = '';
   routes[page].subs.forEach(sub => {
     let a = document.createElement('a');
@@ -17,7 +16,7 @@ async function loadPage(page) {
   });
 
   if (page === 'launch') {
-    content.innerHTML = '<h1 style="text-align:center;">GoldenChain Foundation</h1><p style="text-align:center;">Die Funktions- und Systemebene wird geladen...</p>';
+    content.innerHTML = '<h1 style="text-align:center;">GoldenChain</h1><p style="text-align:center;">System-Status: Online</p>';
     return;
   }
 

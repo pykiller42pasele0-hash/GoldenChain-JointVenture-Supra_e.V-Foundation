@@ -1,3 +1,3 @@
-# Whitepaper
-Ebene 1: Inhalt (Markdown)
-(Hier wird der amtliche englische/deutsche Text eingef�gt)
+﻿# Whitepaper
+## Ebene 1: Mathematische Logik
+Hier werden die Formeln und die Struktur der Foundation erklärt.
