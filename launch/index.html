@@ -1,45 +1,24 @@
-
 <!DOCTYPE html>
-
-<html lang="de">
-
+<html lang='de'>
 <head>
-
-<meta charset="UTF-8">
-
-<title>LAUNCH</title>
-
-<link rel="stylesheet" href="../system/menu.css">
-
+  <meta charset='UTF-8'>
+  <title>LAUNCH</title>
+  <link rel='stylesheet' href='../system/menu.css'>
+  <style>
+    .menu { position: fixed; top: 0; width: 100%; background: #333; padding: 10px; z-index: 1000; }
+    .btn { color: white; margin-right: 20px; text-decoration: none; cursor: pointer; font-family: sans-serif; }
+  </style>
 </head>
-
 <body>
-
-
-
-<nav class="menu">
-
-<a href="../content/README.md" class="btn">HOME</a>
-
-<a href="../content/whitepaper.md" class="btn">DOKUMENTATION</a>
-
-<a href="./index.html" class="btn">LAUNCH</a>
-
-</nav>
-
-
-
-<main style="margin-top: 60px; padding: 20px;">
-
-<h1>LAUNCH</h1>
-
-<p>Hier beginnt die Funktions- und Systemebene.</p>
-
-</main>
-
-
-
+  <nav class='menu'>
+    <a class='btn' onclick='loadPage("home")'>HOME</a>
+    <a class='btn' onclick='loadPage("doku")'>DOKUMENTATION</a>
+    <a class='btn' onclick='loadPage("launch")'>LAUNCH</a>
+  </nav>
+  <main id='content' style='margin-top:80px; padding:20px;'>
+    <h1>LAUNCH</h1>
+    <p>System bereit.</p>
+  </main>
+  <script src='../system/app.js'></script>
 </body>
-
 </html>
-
