@@ -1,3 +1,4 @@
+// Steuert, welche Seite im Rahmen angezeigt wird
 const routes = {
   home: '../README.md',
   doku: '../content/whitepaper.md',
@@ -12,8 +13,8 @@ async function loadPage(page) {
   }
   try {
     const response = await fetch(routes[page]);
-    const text = await response.text();
-    content.innerHTML = '<pre style="white-space: pre-wrap; font-family: sans-serif;">' + text + '</pre>';
+    const html = await response.text();
+    content.innerHTML = html;
   } catch (e) {
     content.innerHTML = '<p>Inhalt konnte nicht geladen werden.</p>';
   }
