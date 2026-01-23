@@ -1,34 +1,45 @@
 const routes = {
-  home: { path: '../README.md', subs: ['Vision', 'Mission', 'Team'] },
-  doku: { path: '../content/whitepaper.md', subs: ['Ebene 1', 'Ebene 2', 'Ebene 3'] },
-  launch: { path: null, subs: ['Blockchain', 'Nodes', 'Status'] }
+  home: { title: 'HOME', file: '../README.md' },
+  doku: { title: 'DOKU', folder: '../content/' },
+  launch: { title: 'LAUNCH', content: '<h1 style="text-align:center;">GoldenChain</h1><p style="text-align:center;">Math-Engine: ± × ÷ v x² ? 8</p>' }
 };
 
 async function loadPage(page) {
   const content = document.getElementById('content');
   const dropdown = document.getElementById('dynamic-dropdown');
-  
-  // Dropdown-Inhalt leeren und neu füllen
   dropdown.innerHTML = '';
-  routes[page].subs.forEach(sub => {
-    let a = document.createElement('a');
-    a.textContent = sub;
-    a.href = '#';
-    dropdown.appendChild(a);
-  });
 
-  if (page === 'launch') {
-    content.innerHTML = '<h1 style="text-align:center;">GoldenChain</h1><p style="text-align:center;">Die Funktions- und Systemebene wird geladen...</p>';
-    return;
+  if (page === 'doku') {
+    // Hier definieren wir deine 9 Slots (Ebene 1-9)
+    // In einer echten Web-Umgebung würde man den Ordner via API listen, 
+    // hier nutzen wir eine Liste deiner Dateien:
+    const files = ['whitepaper', 'matrix', 'vision', 'ebene4', 'ebene5']; // Hier einfach Namen ergänzen
+    
+    files.slice(0, 9).forEach((file, index) => {
+      let a = document.createElement('a');
+      a.textContent = 'Ebene ' + (index + 1) + ' : ' + file.toUpperCase();
+      a.onclick = () => renderMarkdown('../content/' + file + '.md');
+      dropdown.appendChild(a);
+    });
   }
 
-  try {
-    const response = await fetch(routes[page].path);
-    const markdown = await response.text();
-    // Zentrierte Markdown-Ausgabe
-    content.innerHTML = '<div class="markdown-body">' + marked.parse(markdown) + '</div>';
-  } catch (e) {
-    content.innerHTML = '<p>Inhalt konnte nicht geladen werden.</p>';
+  if (page === 'home') {
+    renderMarkdown(routes.home.file);
+  } else if (page === 'launch') {
+    content.innerHTML = routes.launch.content;
   }
 }
+
+async function renderMarkdown(url) {
+  const content = document.getElementById('content');
+  try {
+    const response = await fetch(url);
+    const text = await response.text();
+    // Marked mit Math-Support (einfaches Rendering)
+    content.innerHTML = '<div class="markdown-body">' + marked.parse(text) + '</div>';
+  } catch (e) {
+    content.innerHTML = '<p>Datei nicht gefunden.</p>';
+  }
+}
+
 window.addEventListener('load', () => loadPage('home'));
