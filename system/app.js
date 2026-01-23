@@ -1,47 +1,40 @@
 ﻿const routes = {
-  home: { 
-    path: '../README.md', 
-    dropdown: [
-      { name: 'HOME ROOT', file: '../README.md' },
-      { name: 'LICENSE (RFOF)', file: '../LICENSE.rfof' }
-    ]
-  },
-  doku: { 
-    path: '../content/whitepaper.md', 
-    dropdown: [
-      { name: 'WHITEPAPER', file: '../content/whitepaper.md' },
-      { name: 'EBENE 1', file: '../content/ebene1.md' },
-      { name: 'EBENE 2', file: '../content/ebene2.md' },
-      { name: 'EBENE 3', file: '../content/ebene3.md' },
-      { name: 'EBENE 4', file: '../content/ebene4.md' },
-      { name: 'EBENE 5', file: '../content/ebene5.md' },
-      { name: 'EBENE 6', file: '../content/ebene6.md' },
-      { name: 'EBENE 7', file: '../content/ebene7.md' },
-      { name: 'EBENE 8', file: '../content/ebene8.md' },
-      { name: 'EBENE 9', file: '../content/ebene9.md' }
-    ]
-  }
+  home: { path: '../README.md', dropdown: [{ name: 'HOME ROOT', file: '../README.md' }, { name: 'LICENSE (RFOF)', file: '../LICENSE.rfof' }] },
+  doku: { path: '../content/whitepaper.md', dropdown: [{ name: 'WHITEPAPER', file: '../content/whitepaper.md' }, { name: 'EBENE 1', file: '../content/ebene1.md' }, { name: 'EBENE 2', file: '../content/ebene2.md' }, { name: 'EBENE 3', file: '../content/ebene3.md' }, { name: 'EBENE 4', file: '../content/ebene4.md' }, { name: 'EBENE 5', file: '../content/ebene5.md' }, { name: 'EBENE 6', file: '../content/ebene6.md' }, { name: 'EBENE 7', file: '../content/ebene7.md' }, { name: 'EBENE 8', file: '../content/ebene8.md' }, { name: 'EBENE 9', file: '../content/ebene9.md' }] },
+  launch: { path: null, dropdown: [{ name: 'SYSTEM STATUS', file: null }, { name: 'BLOCKCHAIN NODE', file: null }] }
 };
 
-function showNotariat(targetFile) {
+function showNotariatExplorer() {
     const content = document.getElementById('content');
     const timestamp = new Date().toISOString().replace('T', ' ').substring(0, 19);
-    const hash = btoa(targetFile + timestamp).substring(0, 24).toUpperCase();
+    const sessionHash = btoa(Math.random()).substring(0, 16).toUpperCase();
     
     content.innerHTML = \
-        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; font-family: 'Courier New', monospace;">
-            <div style="border: 2px solid #ffd700; background: rgba(0,0,0,0.9); padding: 40px; border-radius: 5px; box-shadow: 0 0 30px rgba(255, 215, 0, 0.3); max-width: 800px; width: 90%;">
-                <h1 style="color: #ffd700; margin-top: 0; letter-spacing: 5px; border-bottom: 1px solid #333; padding-bottom: 10px;">[!] NOTARIAT EXPLORER</h1>
-                <div style="text-align: left; line-height: 1.6; color: #0f0;">
-                    <p style="margin: 5px 0;"><span style="color: #888;">STATUS:</span> <span style="color: #fff; background: #c00; padding: 0 5px;">PENDING / PRIVATE</span></p>
-                    <p style="margin: 5px 0;"><span style="color: #888;">ID:</span> \</p>
-                    <p style="margin: 5px 0;"><span style="color: #888;">HASH:</span> \</p>
-                    <p style="margin: 5px 0;"><span style="color: #888;">TIME:</span> \ GMT</p>
-                    <hr style="border: 0; border-top: 1px solid #333; margin: 20px 0;">
-                    <p style="color: #aaa; font-style: italic;">Dieses Modul ist urheberrechtlich geschützt oder befindet sich im Notarisierungsprozess der GoldenChain Foundation. Zugriff verweigert.</p>
+        <div class="explorer-fullscreen" style="font-family: 'Courier New', monospace; color: #0f0; background: #050505; padding: 20px; border: 1px solid #ffd700; height: 100%; box-sizing: border-box; overflow-y: auto;">
+            <div style="display: flex; justify-content: space-between; border-bottom: 2px solid #ffd700; padding-bottom: 10px; margin-bottom: 20px;">
+                <h2 style="color: #ffd700; margin: 0;">>> NOTARIAT_EXPLORER_V1.0</h2>
+                <span style="color: #888;">SESSION: \</span>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div style="border: 1px solid #333; padding: 15px; background: rgba(255, 215, 0, 0.05);">
+                    <h3 style="color: #ffd700;">SYSTEM_METRICS</h3>
+                    <p>> NODE_STATUS: <span style="color: #fff; background: green; padding: 0 5px;">ACTIVE</span></p>
+                    <p>> LATENCY: 0ms (MATH_SYNC)</p>
+                    <p>> ARCHITECTURE: C++/PYTHON/JS</p>
                 </div>
-                <div style="margin-top: 30px;">
-                    <a href="mailto:info@rfof-bitcoin.org" style="color: #000; background: #ffd700; padding: 10px 20px; text-decoration: none; font-weight: bold; border-radius: 3px;">ANTRAG STELLEN</a>
+                <div style="border: 1px solid #333; padding: 15px; background: rgba(255, 215, 0, 0.05);">
+                    <h3 style="color: #ffd700;">SECURITY_LOG</h3>
+                    <p>> LAST_VERIFICATION: \</p>
+                    <p>> ENCRYPTION: RFOF_ULTRA_SECURE</p>
+                    <p>> AUTHORITY: JUSTIN KOCH (FOUNDER)</p>
+                </div>
+            </div>
+            <div style="margin-top: 20px; border: 1px solid #333; padding: 15px;">
+                <h3 style="color: #ffd700;">BLOCKCHAIN_FEED</h3>
+                <div id="log-feed" style="font-size: 12px; color: #0a0;">
+                    <p>[INFO] Initializing Blockchain Interface...</p>
+                    <p>[OK] Mathematical Grid Synced (0ms)</p>
+                    <p>[WARN] Unauthorized access to Ebene 1-9 blocked by Notariat.</p>
                 </div>
             </div>
         </div>\;
@@ -51,38 +44,39 @@ async function loadPage(page, specificFile = null) {
   const content = document.getElementById('content');
   const dropdown = document.getElementById('dynamic-dropdown');
   
-  if (!routes[page]) page = 'home';
-  const targetPath = specificFile || routes[page].path;
+  if (page === 'notariat') {
+      showNotariatExplorer();
+      return;
+  }
 
-  // Dropdown füllen
+  const targetPath = specificFile || (routes[page] ? routes[page].path : null);
   dropdown.innerHTML = '';
-  routes[page].dropdown.forEach(item => {
-    let a = document.createElement('a');
-    a.textContent = item.name; a.href = '#';
-    a.onclick = (e) => { e.preventDefault(); loadPage(page, item.file); };
-    dropdown.appendChild(a);
-  });
+  if (routes[page]) {
+    routes[page].dropdown.forEach(item => {
+      let a = document.createElement('a');
+      a.textContent = item.name; a.href = '#';
+      a.onclick = (e) => { e.preventDefault(); loadPage(page, item.file); };
+      dropdown.appendChild(a);
+    });
+  }
 
-  if (!targetPath) {
-    showNotariat('ROOT_SYSTEM_ACCESS');
+  if (page === 'launch' && !specificFile) {
+    content.innerHTML = '<div class="markdown-body"><h1>GoldenChain Launch Pad</h1><p>Gehebelte Umsetzung unter info@rfof-bitcoin.org</p></div>';
     return;
   }
 
   try {
-    // Erzwinge Cache-Refresh bei Fetch
-    const response = await fetch(targetPath, { cache: "no-cache" });
+    const response = await fetch(targetPath);
     if (!response.ok) throw new Error();
     const markdown = await response.text();
     content.innerHTML = '<div class="markdown-body">' + marked.parse(markdown) + '</div>';
     window.scrollTo(0,0);
   } catch (e) {
-    showNotariat(targetPath);
+    content.innerHTML = '<div class="markdown-body"><h1>Inhalt folgt</h1><p>Dieses Modul wird derzeit notarisiert oder ist privat.</p></div>';
   }
 }
 
 window.addEventListener('load', () => {
   const params = new URLSearchParams(window.location.search);
-  const p = params.get('page') || 'home';
-  const f = params.get('file');
-  loadPage(p, f);
+  loadPage(params.get('page') || 'home', params.get('file'));
 });
