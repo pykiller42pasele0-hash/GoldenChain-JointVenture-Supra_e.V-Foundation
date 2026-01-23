@@ -10,29 +10,30 @@
   launch: { path: null, subs: [{n:'SYSTEM STATUS', f:null}, {n:'BLOCKCHAIN NODE', f:null}] }
 };
 
-function renderExplorer() {
-    const content = document.getElementById('content');
-    const ts = new Date().toISOString().replace('T', ' ').substring(0, 19);
-    content.innerHTML = \
-        <div style="background:#000; color:#0f0; padding:30px; border:2px solid #ffd700; font-family:monospace; min-height:400px;">
-            <h2 style="color:#ffd700;">>> NOTARIAT_EXPLORER_CORE_V1.0</h2>
-            <hr style="border:1px solid #222;">
-            <p>> NODE: VERIFIED</p>
-            <p>> SESSION_START: \</p>
-            <p>> 15_MODULE_LOGIC: ACTIVE</p>
-            <div style="margin-top:20px; border:1px solid #0f0; padding:10px;">
-                [INFO] Alle 15 Untersites sind mathematisch verzahnt.
-            </div>
-        </div>\;
+function renderExplorer(title = "NOTARIAT_EXPLORER_CORE_V1.0") {
+  const content = document.getElementById('content');
+  const ts = new Date().toISOString().replace('T', ' ').substring(0, 19);
+  content.innerHTML = \
+    <div style="background:#000; color:#0f0; padding:30px; border:2px solid #ffd700; font-family:monospace; min-height:400px; box-shadow: inset 0 0 20px rgba(0,255,0,0.1);">
+      <h2 style="color:#ffd700;">>> \</h2>
+      <hr style="border:1px solid #222;">
+      <p>> STATUS: ONLINE</p>
+      <p>> SESSION_START: \</p>
+      <p>> 15_MODULE_LOGIC: ACTIVE</p>
+      <div style="margin-top:20px; border:1px solid #0f0; padding:15px; background:rgba(0,255,0,0.05);">
+        [INFO] Alle 15 Untersites (inkl. Explorer) sind mathematisch verzahnt.
+        <br><br>> System bereit für kryptografische Verifizierung.
+      </div>
+    </div>\;
 }
 
 async function loadPage(page, file = null) {
   const content = document.getElementById('content');
   const dropdown = document.getElementById('dynamic-dropdown');
-  
-  if (page === 'notariat') { renderExplorer(); return; }
+
+  if (page === 'notariat') { renderExplorer("MANUAL_SYSTEM_OVERRIDE"); return; }
   if (!routes[page]) page = 'home';
-  
+
   const target = file || routes[page].path;
   dropdown.innerHTML = '';
   routes[page].subs.forEach(sub => {
@@ -42,7 +43,7 @@ async function loadPage(page, file = null) {
   });
 
   if (page === 'launch' && !file) {
-    content.innerHTML = '<h1>GoldenChain Launch Pad</h1><p>System bereit.</p>';
+    content.innerHTML = '<h1 style="text-align:center;">GoldenChain Launch Pad</h1><p style="text-align:center;">System bereit für Deployment.</p>';
     return;
   }
 
@@ -51,8 +52,9 @@ async function loadPage(page, file = null) {
     if (!response.ok) throw new Error();
     const markdown = await response.text();
     content.innerHTML = '<div class="markdown-body">' + marked.parse(markdown) + '</div>';
+    window.scrollTo(0,0);
   } catch (e) {
-    renderExplorer(); // Fallback zum Explorer bei fehlenden Dateien
+    renderExplorer("FILE_NOT_FOUND_PROTECTION"); 
   }
 }
 window.loadPage = loadPage;

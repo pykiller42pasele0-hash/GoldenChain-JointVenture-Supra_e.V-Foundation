@@ -1,8 +1,2 @@
 #include <stdio.h>
-void start_launch() {
-    printf("C-Systemkern gestartet.\n");
-}
-int main() {
-    start_launch();
-    return 0;
-}
+int main() { printf("C-Architektur bereit\n"); return 0; }

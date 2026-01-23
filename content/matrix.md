@@ -1,2 +1,2 @@
 ﻿# Matrix-Dokumentation
-Inhalt der System-Matrix.
+Inhalt: OPA-OLET Matrix Struktur-Logik.
