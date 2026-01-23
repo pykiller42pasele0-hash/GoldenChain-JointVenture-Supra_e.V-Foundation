@@ -1,13 +1,12 @@
 ﻿const routes = {
   home: { 
     path: '../README.md', 
-    subs: [{n:'HOME (ROOT)', f:'../README.md'}, {n:'LICENSE (RFOF)', f:'../LICENSE.rfof'}] 
+    subs: [{n:'HOME ROOT', f:'../README.md'}, {n:'LICENSE.rfof', f:'../LICENSE.rfof'}] 
   },
   doku: { 
     path: '../content/whitepaper.md', 
     subs: [
-      {n:'WHITEPAPER', f:'../content/whitepaper.md'}, 
-      {n:'MATRIX (OPA-OLET)', f:'../content/matrix.md'},
+      {n:'WHITEPAPER', f:'../content/whitepaper.md'}, {n:'MATRIX', f:'../content/matrix.md'},
       {n:'EBENE 1', f:'../content/ebene1.md'}, {n:'EBENE 2', f:'../content/ebene2.md'},
       {n:'EBENE 3', f:'../content/ebene3.md'}, {n:'EBENE 4', f:'../content/ebene4.md'},
       {n:'EBENE 5', f:'../content/ebene5.md'}, {n:'EBENE 6', f:'../content/ebene6.md'},
@@ -23,15 +22,13 @@
 
 function renderExplorer(title, detail) {
   const content = document.getElementById('content');
-  const ts = new Date().toISOString();
   content.innerHTML = \
     <div style="background:#000; color:#0f0; padding:30px; border:2px solid #ffd700; font-family:monospace;">
-      <h2 style="color:#ffd700;">>> NOTARIAT_SYSTEM_PROTECTION</h2>
-      <p>> MODULE: \</p>
-      <p>> PATH: \</p>
-      <p>> TIMESTAMP: \</p>
+      <h2 style="color:#ffd700;">>> NOTARIAT_EXPLORER</h2>
+      <p>> MODE: \</p>
+      <p>> TARGET: \</p>
       <hr style="border:1px solid #222;">
-      <p style="color:red;">[ALERT] Datei wird kryptografisch gesichert oder ist noch im Aufbau.</p>
+      <p>[SYSTEM] Markdown-Umgebung aktiv. Warte auf Daten-Input...</p>
     </div>\;
 }
 
@@ -39,12 +36,12 @@ async function loadPage(page, file = null) {
   const content = document.getElementById('content');
   const dropdown = document.getElementById('dynamic-dropdown');
 
-  if (page === 'notariat') { renderExplorer("MANUAL_ACCESS", "EXPLORER_CORE"); return; }
+  if (page === 'notariat') { renderExplorer("EXPLORER_ACCESS", "CORE"); return; }
   if (!routes[page]) page = 'home';
 
-  const targetPath = file || routes[page].path;
+  const target = file || routes[page].path;
 
-  // Dropdown-Update (Effiziente Generierung)
+  // Dropdown Aufbau (SITES Button)
   dropdown.innerHTML = '';
   routes[page].subs.forEach(sub => {
     let a = document.createElement('a');
@@ -54,21 +51,18 @@ async function loadPage(page, file = null) {
   });
 
   if (page === 'launch' && !file) {
-    content.innerHTML = '<h1>GoldenChain Launch Pad</h1><p>System-Ebene aktiv.</p>';
+    content.innerHTML = '<h1 style="text-align:center;">SYSTEM INITIALIZING...</h1><p style="text-align:center;">Launch-Pad aktiv.</p>';
     return;
   }
 
-  // Markdown Rendering Umgebung
   try {
-    const response = await fetch(targetPath);
-    if (!response.ok) throw new Error("File not found");
+    const response = await fetch(target);
+    if (!response.ok) throw new Error();
     const markdown = await response.text();
     content.innerHTML = '<div class="markdown-body">' + marked.parse(markdown) + '</div>';
-    window.scrollTo(0,0);
   } catch (e) {
-    renderExplorer(page.toUpperCase(), targetPath);
+    renderExplorer(page.toUpperCase(), target || "UNDEFINED");
   }
 }
-
 window.loadPage = loadPage;
 window.addEventListener('load', () => loadPage('home'));
