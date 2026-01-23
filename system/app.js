@@ -30,10 +30,35 @@
   }
 };
 
+function showNotariat(targetFile) {
+    const content = document.getElementById('content');
+    const timestamp = new Date().toISOString().replace('T', ' ').substring(0, 19);
+    const hash = btoa(targetFile + timestamp).substring(0, 32);
+    
+    content.innerHTML = 
+        <div class="notariat-explorer">
+            <h2 style="color:#ffd700;">NOTARIAT EXPLORER</h2>
+            <div style="background:#222; padding:20px; border-radius:5px; border-left: 5px solid #ffd700; text-align:left; font-family:monospace;">
+                <p>> STATUS: PENDING / NOTARIZED</p>
+                <p>> OBJECT: \</p>
+                <p>> HASH: \</p>
+                <p>> TIMESTAMP: \</p>
+                <p>> AUTHORITY: Founder Justin Koch</p>
+                <hr style="border:0; border-top:1px solid #444;">
+                <p style="color:#aaa;">Dieses Modul ist privat oder befindet sich im Notarisierungsprozess. 
+                Die Verifizierung erfolgt über die Blockchain-Infrastruktur der GoldenChain Foundation.</p>
+                <p>Anfragen: <a href="mailto:info@rfof-bitcoin.org" style="color:#ffd700;">info@rfof-bitcoin.org</a></p>
+            </div>
+        </div>
+    ;
+}
+
 async function loadPage(page, specificFile = null) {
   const content = document.getElementById('content');
   const dropdown = document.getElementById('dynamic-dropdown');
-  const targetPath = specificFile || routes[page].path;
+  
+  // Pfad-Korrektur für den Direkt-Link (falls file=../LICENSE.rfof übergeben wird)
+  let targetPath = specificFile || routes[page].path;
 
   dropdown.innerHTML = '';
   routes[page].dropdown.forEach(item => {
@@ -44,9 +69,9 @@ async function loadPage(page, specificFile = null) {
     dropdown.appendChild(a);
   });
 
-  if (page === 'launch' && !specificFile) {
-    content.innerHTML = '<div class="markdown-body"><h1>GoldenChain Launch Pad</h1><p>Gehebelte Umsetzung unter info@rfof-bitcoin.org</p></div>';
-    return;
+  if (page === 'notariat') {
+      showNotariat('Global System Audit');
+      return;
   }
 
   try {
@@ -56,11 +81,10 @@ async function loadPage(page, specificFile = null) {
     content.innerHTML = '<div class="markdown-body">' + marked.parse(markdown) + '</div>';
     window.scrollTo(0,0);
   } catch (e) {
-    content.innerHTML = '<div class="markdown-body"><h1>Inhalt folgt</h1><p>Dieses Modul wird derzeit notarisiert oder ist privat.</p></div>';
+    showNotariat(targetPath || 'Unknown Module');
   }
 }
 
-// NEU: Diese Logik prüft beim Start, ob ein spezieller Link (wie die Lizenz) aufgerufen wurde
 window.addEventListener('load', () => {
   const params = new URLSearchParams(window.location.search);
   const p = params.get('page') || 'home';
