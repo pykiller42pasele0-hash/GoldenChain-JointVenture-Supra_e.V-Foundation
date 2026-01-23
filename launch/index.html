@@ -4,17 +4,26 @@
   <meta charset='UTF-8'>
   <title>LAUNCH</title>
   <link rel='stylesheet' href='../system/menu.css'>
+  <style>
+    body { margin: 0; font-family: sans-serif; }
+    .menu { position: fixed; top: 0; width: 100%; background: #333; padding: 15px; z-index: 1000; display: flex; }
+    .btn { color: white; margin-right: 25px; text-decoration: none; cursor: pointer; font-weight: bold; }
+    #content { margin-top: 80px; padding: 40px; max-width: 900px; margin-left: auto; margin-right: auto; }
+    #content h1, #content h2 { color: #222; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+  </style>
 </head>
 <body>
   <nav class='menu'>
-    <a href='#' class='btn' onclick='loadPage("home")'>HOME</a>
-    <a href='#' class='btn' onclick='loadPage("doku")'>DOKUMENTATION</a>
-    <a href='#' class='btn' onclick='loadPage("launch")'>LAUNCH</a>
+    <a class='btn' onclick='loadPage("home")'>HOME</a>
+    <a class='btn' onclick='loadPage("doku")'>DOKUMENTATION</a>
+    <a class='btn' onclick='loadPage("launch")'>LAUNCH</a>
   </nav>
-  <main id='content' style='margin-top:60px; padding:20px;'>
-    <h1>LAUNCH</h1>
-    <p>Hier beginnt die Funktions- und Systemebene.</p>
+  <main id='content'>
+    <h1>SYSTEM BEREIT</h1>
+    <p>Wähle einen Menüpunkt aus.</p>
   </main>
+
+  <script src='../system/marked.min.js'></script>
   <script src='../system/app.js'></script>
 </body>
 </html>
