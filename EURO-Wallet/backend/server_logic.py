@@ -1,12 +1,11 @@
-# EURO Wallet - Backend Mathematik Engine
-# Global State Machine - 0ms Parity Logic
+# EURO Wallet – Backend Mathematik Engine
+# Kein Server, keine API, nur Logik
 
 state = {
     "eur_balance": 0.0,
     "eur_staked": 0.0,
     "claimable_reward": 0.0,
-    "staked_reward": 0.0,
-    "parity_sync": True
+    "staked_reward": 0.0
 }
 
 def deposit(amount):
