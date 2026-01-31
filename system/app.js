@@ -1,5 +1,5 @@
 const RFOF_CORE = {
-    version: "1.2",
+    version: "1.3",
     routes: {
         1: '../README.md', 
         2: '../LICENSE.rfof', 
@@ -8,7 +8,11 @@ const RFOF_CORE = {
         22: '../RFOF-Golden-Explorer-notary/final_seal.log'
     }
 };
-for(let i=1; i<=9; i++) { RFOF_CORE.routes[i+3] = \`../content/ebene\${i}.md\`; }
+
+// Auto-Expansion: Indiziert Ebenen 1 bis 100 automatisch
+for(let i=1; i<=100; i++) { 
+    RFOF_CORE.routes[i+3] = `../content/ebene${i}.md`; 
+}
 
 async function loadPage(id) {
     const view = document.getElementById('view') || document.body;
@@ -17,8 +21,8 @@ async function loadPage(id) {
         const res = await fetch(path);
         if(!res.ok) throw new Error();
         const text = await res.text();
-        view.innerHTML = typeof marked !== 'undefined' ? marked.parse(text) : \`<pre>\${text}</pre>\`;
+        view.innerHTML = typeof marked !== 'undefined' ? marked.parse(text) : `<pre>${text}</pre>`;
     } catch (e) { 
-        view.innerHTML = \`<h2 style="color:#d4af37">Matrix Defizit</h2><p>Pfad: \${path} nicht erreichbar.</p>\`; 
+        view.innerHTML = `<h2 style="color:#d4af37">Matrix Defizit</h2><p>Ebene ${id} (${path}) noch nicht initialisiert.</p>`; 
     }
 }
