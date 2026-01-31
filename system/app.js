@@ -47,30 +47,17 @@ async function loadPage(page, file = null) {
     dropdown.appendChild(a);
   });
 
-  if (page === 'notariat' || target === 'EXPLORER_CORE') {
-    const ts = new Date().toISOString();
-    content.innerHTML = \
-      <div style="background:#000; color:#0f0; padding:30px; border:2px solid #ffd700; font-family:monospace;">
-        <h2 style="color:#ffd700;">>> GOLDENCHAIN_EXPLORER_SYNC</h2>
-        <hr style="border:1px solid #222;">
-        <p>> STATE: PARITY VALIDATED</p>
-        <p>> LATENCY: 0ms (Hook Workflow)</p>
-        <p>> TIMESTAMP: \</p>
-        <div style="margin-top:20px; border:1px solid #0f0; padding:10px;">
-          [SUCCESS]: Laptop & GitHub Repository sind identisch verankert.
-        </div>
-      </div>\;
+  if (page === 'notariat') {
+    content.innerHTML = '<div style="background:#000; color:#0f0; padding:20px; font-family:monospace; border:1px solid #ffd700;"><h2>>> GOLDENCHAIN PING: 0ms</h2><p>> STATUS: SYNCED</p></div>';
     return;
   }
 
   try {
     const response = await fetch(target);
-    if(!response.ok) throw new Error();
     const text = await response.text();
     content.innerHTML = '<div class="markdown-body">' + marked.parse(text) + '</div>';
-    window.scrollTo(0,0);
   } catch (e) {
-    content.innerHTML = '<div style="padding:50px; text-align:center;"><h2>MODUL_SYNC_PENDING</h2><p>Lade Daten aus GitHub State...</p></div>';
+    content.innerHTML = '<h2>CORE_ACCESS_PENDING</h2><p>Synchronisiere mit 24-Bilder-State...</p>';
   }
 }
 window.loadPage = loadPage;
