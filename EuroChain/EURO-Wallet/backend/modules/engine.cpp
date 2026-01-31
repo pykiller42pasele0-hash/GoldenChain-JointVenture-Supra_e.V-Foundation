@@ -1,1 +1,1 @@
-// [05] C++ Logic 
+// [05] C++ Logic Core 

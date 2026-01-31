@@ -1,1 +1,1 @@
-<?php // [06] PHP Math ?> 
+<?php // [06] PHP Math-Module ?> 

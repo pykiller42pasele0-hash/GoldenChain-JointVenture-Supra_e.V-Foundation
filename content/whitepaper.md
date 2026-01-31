@@ -1,1 +1,1 @@
-# Whitepaper 
+# Vollstaendige Dokumentation 
