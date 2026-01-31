@@ -1,26 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-    <meta charset='UTF-8'><title>GoldenChain Matrix</title>
-    <script src='../system/marked.min.js'></script>
-    <style>
-        body { background: #000; color: #0f0; font-family: monospace; margin: 0; }
-        nav { position: fixed; top: 0; width: 100%; background: #111; padding: 10px; display: flex; justify-content: space-between; border-bottom: 1px solid #0f0; z-index: 1000; box-sizing: border-box; }
-        .btn { border: 1px solid #0f0; padding: 5px 10px; cursor: pointer; color: #0f0; text-decoration: none; font-size: 12px; }
-        #content { margin-top: 80px; padding: 40px; text-align: center; }
-    </style>
+    <meta charset="UTF-8">
+    <title>RFOF GoldenChain Matrix</title>
+    <link rel="stylesheet" href="../system/menu.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
-    <nav>
-        <div>
-            <a class='btn' onclick='loadPage("explorer")'>Explorer</a>
-            <a class='btn' onclick='loadPage("notariat")'>Notariat</a>
-            <a class='btn' onclick='loadPage("chain")'>Chain</a>
-            <a class='btn' onclick='loadPage("matrix")'>Matrix</a>
-        </div>
-        <a class='btn' id='btn-sites' onclick='loadPage("sites")'>SITES: HOME</a>
-    </nav>
-    <main id='content'>System wird initialisiert...</main>
-    <script src='../system/app.js'></script>
+
+    <div id="nav-placeholder"></div>
+
+    <main id="view">
+        <h1>Initialisiere Matrix...</h1>
+        <p>0ms Synchronisation wird aufgebaut.</p>
+    </main>
+
+    <script src="../system/app.js"></script>
+    <script>
+        // Lade das Menü und initialisiere Seite 1
+        fetch('../system/menu.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('nav-placeholder').innerHTML = html;
+                loadPage(1); // Startet mit README.md (Ebene 1)
+            });
+    </script>
 </body>
 </html>
