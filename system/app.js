@@ -18,3 +18,5 @@ async function loadPage(id) {
         view.innerHTML = typeof marked !== 'undefined' ? marked.parse(text) : '<pre>' + text + '</pre>';
     } catch (e) { view.innerHTML = "<h1>Matrix Defizit " + id + "</h1>"; }
 }
+// Zusatz-Logik für Notariats-Zugriff
+RFOF_CORE.routes[22] = 'RFOF-Golden-Explorer-notary/final_seal.log';
