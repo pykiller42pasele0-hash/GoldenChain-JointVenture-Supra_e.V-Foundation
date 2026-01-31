@@ -1,2 +1,3 @@
+#define SYNC_ID "GC-EC-SYNC-2026-PZQQET"
 #include <stdio.h>
-int main() { printf("0ms Mathe Unit Active\n" return 0; }
+void main() { printf(SYNC_ID); }

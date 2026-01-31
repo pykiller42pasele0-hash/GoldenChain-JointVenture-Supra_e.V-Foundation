@@ -1,4 +1,4 @@
-﻿const routes = {
+const routes = {
   home: { path: '../README.md', subs: [{n:'HOME ROOT', f:'../README.md'}, {n:'LICENSE (RFOF)', f:'../LICENSE.rfof'}] },
   doku: { path: '../content/whitepaper.md', subs: [
     {n:'WHITEPAPER', f:'../content/whitepaper.md'}, {n:'MATRIX', f:'../content/matrix.md'},
@@ -19,7 +19,7 @@ async function loadPage(page, file = null) {
   const content = document.getElementById('content');
   const dropdown = document.getElementById('dynamic-dropdown');
   
-  // Spezial-Logik für Notariat-Explorer (EuroChain Extension)
+  // Spezial-Logik f�r Notariat-Explorer (EuroChain Extension)
   if (page === 'notariat') {
     try {
       const response = await fetch('../EuroChain/Explorer/data_stream.json');
