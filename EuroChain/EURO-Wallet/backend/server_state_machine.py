@@ -1,4 +1,1 @@
-# EURO-Wallet Extension Hook
-from server_state_machine import StateMachine
-def extension_sync():
-    return {"extension": "EURO", "parity": True}
+if not exist server_state_machine.py echo # State Machine Missing 
