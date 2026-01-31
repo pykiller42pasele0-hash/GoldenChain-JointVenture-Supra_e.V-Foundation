@@ -1,1 +1,84 @@
-<h1>[07] Euro UI</h1> 
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoldenChain Genesis - Matrix Ebene 0</title>
+    <link rel="stylesheet" href="system/menu.css">
+    <style>
+        /* Zusätzliche Root-Layout Anpassungen */
+        #content-frame {
+            width: 100%;
+            height: calc(100vh - 60px);
+            border: none;
+            background: #05070b;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="matrix-header">
+        <div class="matrix-nav-left">
+            <button id="btn-explorer" class="matrix-btn active" title="Ebene 0: Root Explorer">Explorer</button>
+            <button id="btn-notariat" class="matrix-btn" title="Ebene 1-9: Wissens-Matrix">Notariat</button>
+            <button id="btn-chain" class="matrix-btn" title="Genesis Core">Chain</button>
+            <button id="btn-matrix" class="matrix-btn" title="Ebene 10: Abschluss">Matrix</button>
+        </div>
+        
+        <div class="matrix-status-center" id="matrix-status" style="font-size: 0.7rem; color: #3b82f6;">
+            GENESIS STATE: OPERATIONAL (0ms)
+        </div>
+
+        <div class="matrix-nav-right">
+            <button id="btn-sites" class="matrix-btn" style="border-color: #f59e0b;">SITES</button>
+        </div>
+    </header>
+
+    <div id="main-display">
+        <iframe id="app-viewport" src="GOLDEN-Wallet/frontend/index.html" style="width:100%; height:90vh; border:none;"></iframe>
+    </div>
+
+    <script src="system/app.js"></script>
+    <script>
+        // Lokale Erweiterung der app.js für das Iframe-Routing
+        const viewport = document.getElementById('app-viewport');
+        
+        // Mapping der Matrix-Buttons auf Pfade
+        document.getElementById('btn-explorer').onclick = () => {
+            viewport.src = 'GOLDEN-Wallet/frontend/index.html';
+            updateActiveBtn('btn-explorer');
+        };
+
+        document.getElementById('btn-notariat').onclick = () => {
+            viewport.src = 'content/whitepaper.md'; // Später via marked.js gerendert
+            updateActiveBtn('btn-notariat');
+        };
+
+        document.getElementById('btn-chain').onclick = () => {
+            viewport.src = 'EuroChain/EURO-Wallet/frontend/index.html';
+            updateActiveBtn('btn-chain');
+        };
+
+        document.getElementById('btn-matrix').onclick = () => {
+            viewport.src = 'content/ebene10_matrix.md';
+            updateActiveBtn('btn-matrix');
+        };
+
+        // Der SITES Button Switcher (Home <-> License)
+        let siteToggle = true;
+        document.getElementById('btn-sites').onclick = () => {
+            if(siteToggle) {
+                viewport.src = 'LICENSE.rfof';
+            } else {
+                viewport.src = 'GOLDEN-Wallet/frontend/index.html';
+            }
+            siteToggle = !siteToggle;
+        };
+
+        function updateActiveBtn(id) {
+            document.querySelectorAll('.matrix-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+    </script>
+</body>
+</html>

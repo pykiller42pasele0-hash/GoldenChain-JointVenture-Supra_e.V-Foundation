@@ -1,1 +1,47 @@
-<h1>[24] Global Entry</h1> 
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>GoldenChain Matrix - Ready</title>
+    <link rel="stylesheet" href="system/menu.css">
+    <style>
+        body { margin: 0; overflow: hidden; background: #05070b; font-family: sans-serif; }
+        .matrix-header { display: flex; justify-content: space-between; padding: 10px; background: #0b0f18; border-bottom: 2px solid #3b82f6; }
+        .matrix-btn { background: #1f2937; color: white; border: 1px solid #374151; padding: 6px 15px; cursor: pointer; font-size: 12px; border-radius: 4px; }
+        .matrix-btn:hover { background: #3b82f6; }
+        .matrix-btn.active { background: #3b82f6; border-color: white; box-shadow: 0 0 10px #3b82f6; }
+        iframe { width: 100%%; height: calc(100vh - 55px); border: none; }
+    </style>
+</head>
+<body>
+    <header class="matrix-header">
+        <div>
+            <button id="btn-explorer" class="matrix-btn active" onclick="loadSite('GOLDEN-Wallet/frontend/index.html', 'btn-explorer')">Explorer</button>
+            <button id="btn-notariat" class="matrix-btn" onclick="loadSite('content/whitepaper.md', 'btn-notariat')">Notariat</button>
+            <button id="btn-chain" class="matrix-btn" onclick="loadSite('EuroChain/EURO-Wallet/frontend/index.html', 'btn-chain')">Chain</button>
+            <button id="btn-matrix" class="matrix-btn" onclick="loadSite('content/ebene10_matrix.md', 'btn-matrix')">Matrix</button>
+        </div>
+        <div>
+            <button id="btn-sites" class="matrix-btn" style="color: #f59e0b; border-color: #f59e0b;" onclick="toggleSites()">SITES</button>
+        </div>
+    </header>
+    <iframe id="main-frame" src="GOLDEN-Wallet/frontend/index.html"></iframe>
+    <script>
+        let current = "HOME";
+        function loadSite(url, id) {
+            document.getElementById('main-frame').src = url;
+            document.querySelectorAll('.matrix-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+        function toggleSites() {
+            if(current === "HOME") {
+                loadSite('LICENSE.rfof', 'btn-sites');
+                current = "LICENSE";
+            } else {
+                loadSite('GOLDEN-Wallet/frontend/index.html', 'btn-sites');
+                current = "HOME";
+            }
+        }
+    </script>
+</body>
+</html>
