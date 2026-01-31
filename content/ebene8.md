@@ -1,2 +1,3 @@
-# Ebene 8: Exa-Shield | Seite 11 
-1 EB = 3,145,728 RFOF Tokens 
+# Ebene 8: Exa-Shield
+Wert: 3,145,728 RFOF
+Status: Zertifiziert RFOF 2026

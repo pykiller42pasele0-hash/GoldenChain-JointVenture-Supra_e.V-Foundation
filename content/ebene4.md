@@ -1,2 +1,3 @@
-# Ebene 4: Mega-Flow | Seite 07 
-1 MB = 0.00000285 RFOF Tokens 
+# Ebene 4: Mega-Flow
+Wert: 0.00000285 RFOF
+Status: Zertifiziert RFOF 2026

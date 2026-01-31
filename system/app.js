@@ -1,22 +1,20 @@
-const routes = {
-    explorer: '../README.md',
-    notariat: '../content/whitepaper.md',
-    chain:    '../EuroChain/README.md',
-    matrix:   '../content/ebene10_matrix.md'
-};
-let isLicense = false;
-async function loadPage(id) {
-    const content = document.getElementById('content');
-    let url = routes[id];
-    if (id === 'sites') {
-        isLicense = !isLicense;
-        url = isLicense ? '../LICENSE.rfof' : '../README.md';
-        document.getElementById('btn-sites').textContent = isLicense ? 'SITES: LICENSE' : 'SITES: HOME';
+const RFOF_CORE = {
+    version: "1.1",
+    energyUnit: 0.33333333,
+    routes: {
+        1: 'README.md', 2: 'LICENSE.rfof', 3: 'content/whitepaper.md',
+        4: 'content/ebene1.md', 5: 'content/ebene2.md', 6: 'content/ebene3.md',
+        7: 'content/ebene4.md', 8: 'content/ebene5.md', 9: 'content/ebene6.md',
+        10: 'content/ebene7.md', 11: 'content/ebene8.md', 12: 'content/ebene9.md',
+        13: 'content/RFOF-GoldMatrix.md', 20: 'SITES-Pool/RFOF-TOKEN-LAUNCH.contract'
     }
+};
+async function loadPage(id) {
+    const view = document.getElementById('view') || document.body;
+    const path = RFOF_CORE.routes[id] || id;
     try {
-        const response = await fetch(url);
-        const text = await response.text();
-        content.innerHTML = marked.parse(text);
-    } catch (e) { content.innerHTML = '<h1>Matrix Fehler</h1>'; }
+        const res = await fetch(path);
+        const text = await res.text();
+        view.innerHTML = typeof marked !== 'undefined' ? marked.parse(text) : '<pre>' + text + '</pre>';
+    } catch (e) { view.innerHTML = "<h1>Matrix Defizit " + id + "</h1>"; }
 }
-window.addEventListener('load', () => loadPage('explorer'));

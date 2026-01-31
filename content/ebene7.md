@@ -1,2 +1,3 @@
-# Ebene 7: Peta-Bridge | Seite 10 
-1 PB = 3072 RFOF Tokens 
+# Ebene 7: Peta-Bridge
+Wert: 3072 RFOF
+Status: Zertifiziert RFOF 2026

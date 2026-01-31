@@ -1,2 +1,3 @@
-# Ebene 6: Tera-Genesis 
-1 TB = 3.0000 RFOF Tokens (Basis: 1/3 TB pro Token) 
+# Ebene 6: Giga-Node
+Wert: 0.00292 RFOF
+Status: Zertifiziert RFOF 2026
