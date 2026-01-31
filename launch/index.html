@@ -1,1 +1,26 @@
-<button>[15] Launch</button> 
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='UTF-8'><title>GoldenChain Matrix</title>
+    <script src='../system/marked.min.js'></script>
+    <style>
+        body { background: #000; color: #0f0; font-family: monospace; margin: 0; }
+        nav { position: fixed; top: 0; width: 100%; background: #111; padding: 10px; display: flex; justify-content: space-between; border-bottom: 1px solid #0f0; z-index: 1000; box-sizing: border-box; }
+        .btn { border: 1px solid #0f0; padding: 5px 10px; cursor: pointer; color: #0f0; text-decoration: none; font-size: 12px; }
+        #content { margin-top: 80px; padding: 40px; text-align: center; }
+    </style>
+</head>
+<body>
+    <nav>
+        <div>
+            <a class='btn' onclick='loadPage("explorer")'>Explorer</a>
+            <a class='btn' onclick='loadPage("notariat")'>Notariat</a>
+            <a class='btn' onclick='loadPage("chain")'>Chain</a>
+            <a class='btn' onclick='loadPage("matrix")'>Matrix</a>
+        </div>
+        <a class='btn' id='btn-sites' onclick='loadPage("sites")'>SITES: HOME</a>
+    </nav>
+    <main id='content'>System wird initialisiert...</main>
+    <script src='../system/app.js'></script>
+</body>
+</html>

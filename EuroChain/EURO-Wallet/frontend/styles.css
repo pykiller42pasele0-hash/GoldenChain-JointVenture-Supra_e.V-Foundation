@@ -1,0 +1,159 @@
+/* ============================================================
+   GOLDEN-CHAIN MATRIX DESIGN SYSTEM (0ms CSS CORE)
+   ============================================================ */
+
+:root {
+    --bg-main: #05070b;
+    --bg-card: #0b0f18;
+    --bg-dark: #020617;
+    --border: #1b2233;
+    --accent: #3b82f6; /* Matrix Blue */
+    --text: #f5f5f5;
+    --text-dim: #9ca3af;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg-main);
+    color: var(--text);
+    overflow-x: hidden;
+}
+
+/* --- MATRIX HEADER (DIE 5 BUTTON LOGIK) --- */
+.matrix-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px;
+    background: var(--bg-card);
+    border-bottom: 2px solid var(--accent);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Linke Ecke: Explorer, Notariat, Chain, Matrix */
+.matrix-nav-left {
+    display: flex;
+    gap: 5px;
+}
+
+/* Rechte Ecke: SITES Button */
+.matrix-nav-right {
+    display: flex;
+}
+
+.matrix-btn {
+    padding: 6px 12px;
+    background: var(--bg-dark);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: 0.2s;
+}
+
+.matrix-btn:hover {
+    border-color: var(--accent);
+    color: var(--text);
+}
+
+.matrix-btn.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
+
+/* --- WALLET UI ENGINE --- */
+.app {
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.balance-card {
+    background: linear-gradient(145deg, #0b0f18, #020617);
+    padding: 24px;
+    border-radius: 16px;
+    text-align: center;
+    margin: 16px;
+    border: 1px solid var(--border);
+}
+
+.balance-value {
+    font-size: 2.2rem;
+    font-weight: bold;
+    letter-spacing: -1px;
+}
+
+/* --- TABS & CONTENT --- */
+.tabs {
+    display: flex;
+    background: var(--bg-main);
+    border-bottom: 1px solid var(--border);
+}
+
+.tab {
+    flex: 1;
+    padding: 12px;
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.tab.active {
+    color: var(--accent);
+    border-bottom: 3px solid var(--accent);
+}
+
+.tab-content { display: none; padding: 16px; }
+.tab-content.active { display: block; animation: fadeIn 0.3s; }
+
+/* --- BUTTONS & ACTIONS --- */
+.actions { display: flex; gap: 10px; margin-bottom: 20px; }
+
+.btn-primary {
+    flex: 1;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    background: var(--accent);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-secondary {
+    flex: 1;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    background: #1f2937;
+    color: white;
+    cursor: pointer;
+}
+
+/* --- LISTS & ACTIVITY --- */
+.activity-row {
+    background: var(--bg-dark);
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    border-left: 3px solid var(--accent);
+}
+
+/* --- ANIMATIONS --- */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
