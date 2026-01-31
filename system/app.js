@@ -20,7 +20,7 @@
     name: 'LAUNCH',
     path: './README.md', 
     subs: [
-      {n:'GOLDEN-WALLET (GENESIS)', f:'./launch/index.html'},
+      {n:'GOLDEN-WALLET (GENESIS CORE)', f:'./GOLDEN-Wallet/frontend/index.html'},
       {n:'EURO-WALLET (EXTENSION)', f:'./EuroChain/EURO-Wallet/README.md'}
     ]
   },
