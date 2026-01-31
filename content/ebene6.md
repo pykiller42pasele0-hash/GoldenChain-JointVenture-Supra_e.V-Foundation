@@ -1,4 +1,2 @@
-﻿# EBENE 6: Modul der GoldenChain Foundation
-Dieses Modul ist Teil der patentierten Quadruplicare-Struktur (50:50).
-Jegliche Umsetzung erfordert die Koordination durch den Founder Justin Koch.
-Kontakt: info@rfof-bitcoin.org
+# Ebene 6: Tera-Genesis 
+1 TB = 3.0000 RFOF Tokens (Basis: 1/3 TB pro Token) 

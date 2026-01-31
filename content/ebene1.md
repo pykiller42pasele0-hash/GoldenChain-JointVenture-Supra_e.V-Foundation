@@ -1,4 +1,2 @@
-ï»¿# EBENE 1: Modul der GoldenChain Foundation
-Dieses Modul ist Teil der patentierten Quadruplicare-Struktur (50:50).
-Jegliche Umsetzung erfordert die Koordination durch den Founder Justin Koch.
-Kontakt: info@rfof-bitcoin.org
+# Ebene 1: Nano-Parit„t | Seite 04 
+1 Bit = 0.00000000000034 RFOF Tokens (Parity 75/25) 
