@@ -1,1 +1,25 @@
-<button>[15] Launch</button> 
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>RFOF GoldenChain Matrix</title>
+    <link rel="stylesheet" href="../system/menu.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <div id="nav-placeholder"></div>
+    <main id="view">
+        <h1 style="color: #d4af37;">Initialisiere GoldenChain Matrix...</h1>
+        <p>Verbindung zum Main-Branch wird aufgebaut.</p>
+    </main>
+    <script src="../system/app.js"></script>
+    <script>
+        fetch('../system/menu.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('nav-placeholder').innerHTML = html;
+                loadPage(1); 
+            });
+    </script>
+</body>
+</html>
