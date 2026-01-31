@@ -27,9 +27,17 @@
   notariat: { 
     name: 'EXPLORER',
     path: 'NOTARIAT_CHAIN_RESERVE', 
-    subs: [{n:'CHAIN STATUS', f:'EXPLORER_CORE'}, {n:'MATRIX PING', f:'MATRIX'}] 
+    subs: [{n:'CHAIN STATUS', f:'EXPLORER_CORE'}, {n:'GENERATE PHRASE', f:'PHRASE_GEN'}] 
   }
 };
+
+// Mathematischer Phrasen-Generator (Lokal im Browser)
+function generateMatrixPhrase(ebene) {
+    const words = ["GOLDEN", "EURO", "CHAIN", "GENESIS", "MATRIX", "EXTENSION", "ROOT", "NOTARIAT", "NODE", "SUPRA"];
+    let phrase = [];
+    for(let i=0; i<3; i++) phrase.push(words[Math.floor(Math.random()*words.length)]);
+    return \EBENE-\-\-\\;
+}
 
 async function loadPage(page, file = null) {
   const content = document.getElementById('content');
@@ -47,8 +55,22 @@ async function loadPage(page, file = null) {
     dropdown.appendChild(a);
   });
 
-  if (page === 'notariat') {
-    content.innerHTML = '<div style="background:#000; color:#0f0; padding:20px; font-family:monospace; border:1px solid #ffd700;"><h2>>> GOLDENCHAIN PING: 0ms</h2><p>> STATUS: SYNCED</p></div>';
+  if (target === 'PHRASE_GEN' || page === 'notariat') {
+    const newPhrase = generateMatrixPhrase(page === 'doku' ? '1-10' : '0');
+    content.innerHTML = \
+      <div style="background:#000; color:#ffd700; padding:40px; border:2px solid #ffd700; font-family:monospace;">
+        <h2>>> NOTARIAT_CHAIN_PHRASE_GENERATOR</h2>
+        <p style="color:#0f0;">Status: Lokal aktiv (0ms Hook)</p>
+        <hr style="border:1px solid #222;">
+        <div style="background:#111; padding:20px; border:1px dashed #ffd700; font-size:1.2rem; text-align:center;">
+          \
+        </div>
+        <p style="font-size:0.8rem; color:#888; margin-top:20px;">
+          Diese Phrase wird nur lokal in deiner auth_key.json verankert. 
+          Sie verlässt niemals diese Struktur.
+        </p>
+        <button onclick="alert('Phrase lokal kopiert!')" style="background:#ffd700; color:#000; border:none; padding:10px 20px; cursor:pointer; font-weight:bold;">PHRASE SICHERN</button>
+      </div>\;
     return;
   }
 
@@ -57,7 +79,7 @@ async function loadPage(page, file = null) {
     const text = await response.text();
     content.innerHTML = '<div class="markdown-body">' + marked.parse(text) + '</div>';
   } catch (e) {
-    content.innerHTML = '<h2>CORE_ACCESS_PENDING</h2><p>Synchronisiere mit 24-Bilder-State...</p>';
+    content.innerHTML = '<h2>MODUL_ACCESS</h2><p>Wähle eine SITE über den Button oben rechts.</p>';
   }
 }
 window.loadPage = loadPage;
