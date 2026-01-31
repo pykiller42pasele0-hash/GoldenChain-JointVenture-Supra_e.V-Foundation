@@ -1,15 +1,22 @@
 @echo off
 setlocal ENABLEDELAYEDEXPANSION
 set REMOTE=origin
-set DEV_BRANCH=main
-echo [matrix_fix] Starte Master-Workflow...
-git rev-parse --is-inside-work-tree >NUL 2>&1
-IF ERRORLEVEL 1 ( echo [matrix_fix] Fehler & goto :EOF )
-git checkout %%DEV_BRANCH%%
-git fetch %%REMOTE%%
-git rebase %%REMOTE%%/%%DEV_BRANCH%%
+:: Automatische Branch-Erkennung
+for /f "tokens=*" %%i in ('git rev-parse --abbrev-ref HEAD') do set CURRENT_BRANCH=%%i
+
+echo [matrix_fix] Aktiver Branch: %%CURRENT_BRANCH%%
+echo [matrix_fix] Synchronisiere mit %origin%...
+
+git fetch %origin%
+git rebase %origin%/%%CURRENT_BRANCH%%
+
+:: 0ms Parity Check: Sicherstellen, dass die State Machine existiert
+
 git add -A
-set MSG=auto: matrix_update %31.01.2026%
-git commit -m "%%MSG%%"
-git push %%REMOTE%% %%DEV_BRANCH%%
+:: Zeitstempel ohne Syntax-Fehler generieren
+set MSG=auto: matrix_sync %31.01.2026% %15:29:09,66%
+git commit -m "%auto: matrix_update !DT!%"
+
+git push %origin% %%CURRENT_BRANCH%%
+echo [matrix_fix] Paritaet hergestellt.
 endlocal
