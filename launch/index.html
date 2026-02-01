@@ -2,11 +2,31 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
+main
+    <title>RFOF GoldenChain Matrix</title>
+
     <title>RFOF GoldenChain Dashboard</title>
+gh-pages
     <link rel="stylesheet" href="../system/menu.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
+main
+    <div id="nav-placeholder"></div>
+    <main id="view">
+        <h1 style="color: #d4af37;">Initialisiere GoldenChain Matrix...</h1>
+        <p>Verbindung zum Main-Branch wird aufgebaut.</p>
+    </main>
+    <script src="../system/app.js"></script>
+    <script>
+        fetch('../system/menu.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('nav-placeholder').innerHTML = html;
+                loadPage(1); 
+            });
+    </script>
+
     <nav class="nav-bar">
         <div class="menu-center">
             <a class="btn" onclick="loadPage('home')">HOME</a>
@@ -28,5 +48,6 @@
         <h1 style="text-align:center; color:#d4af37; margin-top:30vh;">0ms INITIALISIERUNG...</h1>
     </main>
     <script src="../system/app.js"></script>
+gh-pages
 </body>
 </html>
