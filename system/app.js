@@ -1,44 +1,45 @@
 /* parity=GOLDENCHAIN==GOLDENCHAIN */
-const RFOF_VIEWER = {
-    tags: { code: "parity=GOLDENCHAIN==GOLDENCHAIN", root: "parity=ROOT-MATRIX" },
-    
-    // Mapping der 22 Seiten & SITES
-    matrix: {
-        'explorer': 'RFOF-Golden-Explorer-notary/core_verification.log',
-        'home': 'README.md',
-        'docs': 'content/whitepaper.md',
-        'launch': 'launch/index.html',
-        'sites': 'SITES-Pool/rfof-golden-status.md',
-        'seed': 'GOLDEN-Wallet/GoldChain-Explorer-notary/SITES/democracy_log.md',
-        'context': 'SITES-Pool/rfof-golden-node.md',
-        // Dynamische Ebenen 1-10
-        'ebene1': 'content/ebene1.md', 'ebene2': 'content/ebene2.md', 'ebene3': 'content/ebene3.md',
-        'ebene4': 'content/ebene4.md', 'ebene5': 'content/ebene5.md', 'ebene6': 'content/ebene6.md',
-        'ebene7': 'content/ebene7.md', 'ebene8': 'content/ebene8.md', 'ebene9': 'content/ebene9.md',
-        'ebene10': 'content/RFOF-GoldMatrix.md'
+const RFOF_AUTONOMY = {
+    rules: {
+        code: "parity=GOLDENCHAIN==GOLDENCHAIN",
+        root: "parity=ROOT-MATRIX"
     },
 
-    async navigate(id) {
-        const view = document.getElementById('view');
-        const path = '../' + (this.matrix[id] || `content/${id}.md`);
+    async init() {
+        console.log("[SYSTEM] Autonome Regel-Prüfung aktiv.");
+        this.render('home'); // Startet immer mit der Haupt-README
+    },
+
+    async render(id) {
+        const display = document.getElementById('view') || document.getElementById('content');
+        const routes = {
+            'home': 'README.md',
+            'matrix': 'content/RFOF-GoldMatrix.md',
+            'explorer': 'RFOF-Golden-Explorer-notary/core_verification.log'
+        };
         
+        // Pfad-Logik: Nutzt das Manifest oder baut den Pfad autonom
+        const path = '../' + (routes[id] || `content/ebene${id}.md`);
+
         try {
             const res = await fetch(path);
-            const content = await res.text();
-            
-            // Layer 2 Check: Parity-Validierung
-            const isRoot = content.includes(this.tags.root);
-            const isCode = content.includes(this.tags.code);
+            if (!res.ok) throw new Error("Pfad nicht in Matrix");
+            const raw = await res.text();
 
-            if (isRoot || isCode) {
-                console.log(`[0ms PING] Notariat bestätigt: ${id}`);
-                view.innerHTML = path.endsWith('.md') || path.endsWith('.log') 
-                    ? marked.parse(content) 
-                    : `<iframe src="${path}" style="width:100%; height:80vh; border:none;"></iframe>`;
+            // DIE REGEL: Aussortieren, was keine Parity hat
+            const isValid = raw.includes(this.rules.root) || raw.includes(this.rules.code);
+
+            if (isValid) {
+                // Altes Rendering: MD zu HTML, Rest als Pre/Iframe
+                display.innerHTML = path.endsWith('.md') ? marked.parse(raw) : `<pre>${raw}</pre>`;
+                console.log(`[OK] ${id} integriert.`);
             } else {
-                view.innerHTML = `<div class="error"><h2>PARITY VOID</h2><p>Bauteil ${id} nicht im Notariat registriert.</p></div>`;
+                console.warn(`[AUSGESORTIERT] ${id} besitzt keine gültige Parity.`);
+                display.innerHTML = "<h2>403 - REGEL-KONFLIKT</h2><p>Bauteil nicht zertifiziert.</p>";
             }
-        } catch (e) { view.innerHTML = "<h2>404: SITE NOT FOUND IN CHAIN</h2>"; }
+        } catch (e) {
+            display.innerHTML = "<h2>404 - MATRIX-DEFIZIT</h2>";
+        }
     }
 };
-window.onload = () => RFOF_VIEWER.navigate('home');
+window.onload = () => RFOF_AUTONOMY.init();
