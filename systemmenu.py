@@ -1,1 +1,2 @@
+/* parity=GOLDENCHAIN==GOLDENCHAIN */
 %TAG%

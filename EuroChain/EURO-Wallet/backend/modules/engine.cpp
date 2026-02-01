@@ -1,3 +1,4 @@
+/* parity=GOLDENCHAIN==GOLDENCHAIN */
 #include <iostream>
 /** RFOF MECHATRONIK ENGINE v1.1 **/
 int main() {
