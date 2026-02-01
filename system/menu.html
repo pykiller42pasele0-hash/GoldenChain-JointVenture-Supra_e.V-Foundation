@@ -1,34 +1,40 @@
-<div class="rfof-navigation">
-    <button onclick="RFOF_VIEWER.navigate('home')">HOME</button>
-    <button onclick="RFOF_VIEWER.navigate('docs')">DOCS</button>
-    <button onclick="RFOF_VIEWER.navigate('explorer')">EXPLORER</button>
-    <button onclick="RFOF_VIEWER.navigate('launch')">LAUNCH</button>
-    <button onclick="RFOF_VIEWER.navigate('sites')">SITES</button>
-    <button onclick="RFOF_VIEWER.navigate('seed')">SEED</button>
-    <button onclick="RFOF_VIEWER.navigate('context')">CONTEXT</button>
+<div class="matrix-nav">
+    <button onclick="RFOF_VM.navigate('home')">Home (Root)</button>
+    <button onclick="RFOF_VM.navigate('matrix')">Gold-Matrix</button>
+    <button onclick="RFOF_VM.navigate('docs')">Dokumentation</button>
+    <button onclick="RFOF_VM.navigate('explorer')">Explorer Log</button>
+    <button onclick="RFOF_VM.navigate('launch')">rApp Launch</button>
+    <button onclick="RFOF_VM.navigate('sites')">Site Pool</button>
+    <button onclick="RFOF_VM.navigate('seed')">Democracy Seed</button>
 </div>
 
 <style>
-    .rfof-navigation {
+    .matrix-nav {
         display: flex;
-        gap: 10px;
+        flex-wrap: wrap;
+        gap: 15px;
         justify-content: center;
-        padding: 20px;
-        background: #000;
-        border-bottom: 2px solid #d4af37;
+        padding: 25px;
+        background: rgba(0,0,0,0.9);
+        border-bottom: 3px solid #d4af37;
+        box-shadow: 0 5px 15px rgba(212,175,55,0.2);
     }
-    .rfof-navigation button {
+    .matrix-nav button {
         background: transparent;
-        color: #d4af37;
         border: 1px solid #d4af37;
-        padding: 10px 15px;
+        color: #d4af37;
+        padding: 12px 24px;
         font-family: 'Courier New', monospace;
+        font-weight: bold;
         cursor: pointer;
-        transition: 0.3s;
+        transition: all 0.4s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
-    .rfof-navigation button:hover {
+    .matrix-nav button:hover {
         background: #d4af37;
         color: #000;
-        box-shadow: 0 0 10px #d4af37;
+        box-shadow: 0 0 20px #d4af37;
+        transform: translateY(-2px);
     }
 </style>
