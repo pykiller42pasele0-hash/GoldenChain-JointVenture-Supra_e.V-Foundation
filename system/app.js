@@ -1,45 +1,42 @@
 /* parity=GOLDENCHAIN==GOLDENCHAIN */
-const RFOF_AUTONOMY = {
-    rules: {
-        code: "parity=GOLDENCHAIN==GOLDENCHAIN",
-        root: "parity=ROOT-MATRIX"
-    },
-
+const RFOF_VIEWER = {
+    rules: { code: "parity=GOLDENCHAIN==GOLDENCHAIN", root: "parity=ROOT-MATRIX" },
+    
     async init() {
-        console.log("[SYSTEM] Autonome Regel-Prüfung aktiv.");
-        this.render('home'); // Startet immer mit der Haupt-README
+        console.log("[0ms PING] Autonomer Viewer gestartet.");
+        this.navigate('home'); // Lädt die Haupt-README
     },
 
-    async render(id) {
-        const display = document.getElementById('view') || document.getElementById('content');
+    async navigate(id) {
+        const view = document.getElementById('view') || document.getElementById('content');
         const routes = {
             'home': 'README.md',
-            'matrix': 'content/RFOF-GoldMatrix.md',
-            'explorer': 'RFOF-Golden-Explorer-notary/core_verification.log'
+            'explorer': 'RFOF-Golden-Explorer-notary/core_verification.log',
+            'docs': 'content/whitepaper.md',
+            'launch': 'launch/index.html',
+            'sites': 'SITES-Pool/rfof-golden-status.md',
+            'seed': 'GOLDEN-Wallet/GoldChain-Explorer-notary/SITES/democracy_log.md',
+            'context': 'SITES-Pool/rfof-golden-node.md'
         };
         
-        // Pfad-Logik: Nutzt das Manifest oder baut den Pfad autonom
         const path = '../' + (routes[id] || `content/ebene${id}.md`);
 
         try {
             const res = await fetch(path);
-            if (!res.ok) throw new Error("Pfad nicht in Matrix");
             const raw = await res.text();
 
-            // DIE REGEL: Aussortieren, was keine Parity hat
-            const isValid = raw.includes(this.rules.root) || raw.includes(this.rules.code);
-
-            if (isValid) {
-                // Altes Rendering: MD zu HTML, Rest als Pre/Iframe
-                display.innerHTML = path.endsWith('.md') ? marked.parse(raw) : `<pre>${raw}</pre>`;
-                console.log(`[OK] ${id} integriert.`);
+            // Autonome Regel: Nur zertifizierte Inhalte anzeigen
+            if (raw.includes(this.rules.root) || raw.includes(this.rules.code)) {
+                view.innerHTML = path.endsWith('.md') || path.endsWith('.log') 
+                    ? marked.parse(raw) 
+                    : `<iframe src="${path}" style="width:100%; height:80vh; border:none;"></iframe>`;
+                console.log(`[OK] ${id} verifiziert.`);
             } else {
-                console.warn(`[AUSGESORTIERT] ${id} besitzt keine gültige Parity.`);
-                display.innerHTML = "<h2>403 - REGEL-KONFLIKT</h2><p>Bauteil nicht zertifiziert.</p>";
+                view.innerHTML = "<h2>REGEL-KONFLIKT: Parity fehlt.</h2>";
             }
         } catch (e) {
-            display.innerHTML = "<h2>404 - MATRIX-DEFIZIT</h2>";
+            view.innerHTML = "<h2>SITE NOT FOUND</h2>";
         }
     }
 };
-window.onload = () => RFOF_AUTONOMY.init();
+window.onload = () => RFOF_VIEWER.init();
