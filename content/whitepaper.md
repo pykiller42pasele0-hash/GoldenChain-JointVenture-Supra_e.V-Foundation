@@ -27,6 +27,10 @@ Jede Integration folgt der mathematischen Formel:
 3. **Sub-Signatur:** Jede Änderung generiert eine Sub-Parity (Zeitstempel + ID).
 
 # BEGIN:RFOF-INTEGRATION
+### LAYER 4: APM-TRANSZENDENZ (Sichtbarkeits-Gesetz)
+Die vierte Schicht macht die Parität für den Operator sichtbar. 
+- **Regel:** Validierung ohne Veränderung (Observability).
+- **Ziel:** 0ms Transparenz über den energetischen Zustand aller Bauteile.
 /* LAYER 3 OPERATIV: DETERMINISTISCHE MATRIX AKTIVIERT */
 # END:RFOF-INTEGRATION
 
