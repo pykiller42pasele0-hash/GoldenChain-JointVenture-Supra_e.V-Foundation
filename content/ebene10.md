@@ -1,3 +1,4 @@
+parity=ROOT-MATRIX
 
 
 # Ebene 10: Exo-Core

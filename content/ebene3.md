@@ -1,3 +1,4 @@
+parity=ROOT-MATRIX
 
 
 ﻿# EBENE 3: Modul der GoldenChain Foundation
