@@ -1,4 +1,7 @@
 /* parity=GOLDENCHAIN==GOLDENCHAIN */
+// BEGIN:RFOF-INTEGRATION
+// System-Erweiterungen hier
+// END:RFOF-INTEGRATION
 const RFOF_VM = {
     code_tag: "parity=GOLDENCHAIN==GOLDENCHAIN",
     root_tag: "parity=ROOT-MATRIX",
