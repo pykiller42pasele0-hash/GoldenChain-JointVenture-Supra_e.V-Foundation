@@ -1,4 +1,5 @@
 
+
 # RFOF WHITEPAPER: DIE DREI SCHICHTEN DER MATRIX
 Version: 1.2 (Layer 3 Update 2026)
 
