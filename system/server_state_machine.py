@@ -1,3 +1,4 @@
+/* parity=GOLDENCHAIN==GOLDENCHAIN */
 # EURO Wallet - Backend Mathematik Engine
 # Global State Machine - 0ms Parity Logic
 

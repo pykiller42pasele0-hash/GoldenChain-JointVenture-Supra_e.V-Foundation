@@ -1,1 +1,16 @@
-<h1>[12] Genesis Dashboard</h1> 
+/* parity=GOLDENCHAIN==GOLDENCHAIN */
+<div id="wallet-terminal" style="background:#000; color:#d4af37; padding:20px; font-family:monospace; border:1px solid #d4af37;">
+    <h3>[GOLDEN-WALLET CORE TERMINAL]</h3>
+    <div id="wallet-output">> System bereit...</div>
+    <hr>
+    <button onclick="simulateTx()">Transaktion Signieren</button>
+</div>
+
+<script>
+    function simulateTx() {
+        const out = document.getElementById('wallet-output');
+        const txId = '0x' + Math.random().toString(16).slice(2, 10);
+        out.innerHTML += `<br>> TX: ${txId} | Status: SIGNED | Parity: OK`;
+        console.log("[0ms PING] Transaktion generiert:", txId);
+    }
+</script>

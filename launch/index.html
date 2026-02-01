@@ -2,11 +2,16 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
+main
     <title>RFOF GoldenChain Matrix</title>
+
+    <title>RFOF GoldenChain Dashboard</title>
+gh-pages
     <link rel="stylesheet" href="../system/menu.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
+main
     <div id="nav-placeholder"></div>
     <main id="view">
         <h1 style="color: #d4af37;">Initialisiere GoldenChain Matrix...</h1>
@@ -21,5 +26,28 @@
                 loadPage(1); 
             });
     </script>
+
+    <nav class="nav-bar">
+        <div class="menu-center">
+            <a class="btn" onclick="loadPage('home')">HOME</a>
+            <a class="btn" onclick="loadPage('doku')">DOCS</a>
+            <a class="btn" onclick="loadPage('matrix')">MATRIX</a>
+            <a class="btn" onclick="loadPage('golden_ui')" style="color:#d4af37;">GOLDEN</a>
+            <a class="btn" onclick="loadPage('euro_ui')" style="color:#3498db;">EURO</a>
+        </div>
+        <div class="dropdown-container">
+            <button class="dropbtn">SITES ▼</button>
+            <div id="dynamic-dropdown" class="dropdown-content">
+                <a onclick="loadPage(1)">Ebene 1-9</a>
+                <a onclick="loadPage(10)">Ebene 10 (Exo)</a>
+                <a onclick="loadPage('notary')">NOTARIAT</a>
+            </div>
+        </div>
+    </nav>
+    <main id="view">
+        <h1 style="text-align:center; color:#d4af37; margin-top:30vh;">0ms INITIALISIERUNG...</h1>
+    </main>
+    <script src="../system/app.js"></script>
+gh-pages
 </body>
 </html>

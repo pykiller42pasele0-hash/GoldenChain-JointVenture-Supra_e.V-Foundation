@@ -1,3 +1,4 @@
+parity=ROOT-MATRIX
 # GoldenChain Joint Venture Supra e.V. Foundation
 
 **@RFOF-NETWORK licensed under the PZqQET.license LICENSE.rfof**

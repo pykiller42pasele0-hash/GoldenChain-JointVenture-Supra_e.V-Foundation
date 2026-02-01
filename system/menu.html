@@ -1,3 +1,4 @@
+main
 <nav class="rfof-nav">
     <button onclick="loadPage(1)">Home</button>
     <button onclick="loadPage(3)">Whitepaper</button>
@@ -8,3 +9,45 @@
         SYSTEM: ONLINE | RFOF v1.2
     </div>
 </nav>
+
+<div class="matrix-nav">
+    <button onclick="RFOF_VM.navigate('home')">Home (Root)</button>
+    <button onclick="RFOF_VM.navigate('matrix')">Gold-Matrix</button>
+    <button onclick="RFOF_VM.navigate('docs')">Dokumentation</button>
+    <button onclick="RFOF_VM.navigate('explorer')">Explorer Log</button>
+    <button onclick="RFOF_VM.navigate('launch')">rApp Launch</button>
+    <button onclick="RFOF_VM.navigate('sites')">Site Pool</button>
+    <button onclick="RFOF_VM.navigate('seed')">Democracy Seed</button>
+</div>
+
+<style>
+    .matrix-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: center;
+        padding: 25px;
+        background: rgba(0,0,0,0.9);
+        border-bottom: 3px solid #d4af37;
+        box-shadow: 0 5px 15px rgba(212,175,55,0.2);
+    }
+    .matrix-nav button {
+        background: transparent;
+        border: 1px solid #d4af37;
+        color: #d4af37;
+        padding: 12px 24px;
+        font-family: 'Courier New', monospace;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.4s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    .matrix-nav button:hover {
+        background: #d4af37;
+        color: #000;
+        box-shadow: 0 0 20px #d4af37;
+        transform: translateY(-2px);
+    }
+</style>
+gh-pages
