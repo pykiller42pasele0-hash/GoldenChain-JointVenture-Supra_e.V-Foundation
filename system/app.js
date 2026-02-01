@@ -1,42 +1,24 @@
-/* parity=GOLDENCHAIN==GOLDENCHAIN */
-const RFOF_VIEWER = {
-    rules: { code: "parity=GOLDENCHAIN==GOLDENCHAIN", root: "parity=ROOT-MATRIX" },
-    
-    async init() {
-        console.log("[0ms PING] Autonomer Viewer gestartet.");
-        this.navigate('home'); // Lädt die Haupt-README
+/* parity=tag==tag */
+/* parity=tag==tag */
+const RFOF_SPA = {
+    tag: "parity=tag==tag",
+    routes: {
+        'home': 'README.md',
+        'whitepaper': 'content/whitepaper.md',
+        'matrix': 'content/RFOF-GoldMatrix.md'
     },
-
-    async navigate(id) {
-        const view = document.getElementById('view') || document.getElementById('content');
-        const routes = {
-            'home': 'README.md',
-            'explorer': 'RFOF-Golden-Explorer-notary/core_verification.log',
-            'docs': 'content/whitepaper.md',
-            'launch': 'launch/index.html',
-            'sites': 'SITES-Pool/rfof-golden-status.md',
-            'seed': 'GOLDEN-Wallet/GoldChain-Explorer-notary/SITES/democracy_log.md',
-            'context': 'SITES-Pool/rfof-golden-node.md'
-        };
-        
-        const path = '../' + (routes[id] || `content/ebene${id}.md`);
-
+    async load(id) {
+        const view = document.getElementById('view') || document.body;
+        const path = this.routes[id] || `content/ebene${id}.md`;
         try {
-            const res = await fetch(path);
-            const raw = await res.text();
-
-            // Autonome Regel: Nur zertifizierte Inhalte anzeigen
-            if (raw.includes(this.rules.root) || raw.includes(this.rules.code)) {
-                view.innerHTML = path.endsWith('.md') || path.endsWith('.log') 
-                    ? marked.parse(raw) 
-                    : `<iframe src="${path}" style="width:100%; height:80vh; border:none;"></iframe>`;
-                console.log(`[OK] ${id} verifiziert.`);
-            } else {
-                view.innerHTML = "<h2>REGEL-KONFLIKT: Parity fehlt.</h2>";
-            }
+            const res = await fetch('../' + path);
+            const text = await res.text();
+            if (!text.includes(this.tag) && !path.endsWith('.md')) throw new Error("Parity Defizit");
+            view.innerHTML = path.endsWith('.md') ? marked.parse(text) : text;
+            console.log("[0ms PING] Geladen:", path);
         } catch (e) {
-            view.innerHTML = "<h2>SITE NOT FOUND</h2>";
+            view.innerHTML = `<h2 style="color:#d4af37">PARITY ERROR</h2><p>${path} nicht verifiziert.</p>`;
         }
     }
 };
-window.onload = () => RFOF_VIEWER.init();
+window.onload = () => RFOF_SPA.load('home');
